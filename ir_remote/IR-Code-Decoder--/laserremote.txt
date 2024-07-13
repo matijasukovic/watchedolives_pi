@@ -1,0 +1,18 @@
+Button codes regarding laserremote IR controller:
+Button Code - up: 0x300ff18e7
+Button Code - down: 0x300ff4ab5
+Button Code - left: 0x300ff10ef
+Button Code - right: 0x300ff5aa5
+Button Code - ok: 0x300ff38c7
+Button Code - 1: 0x300ffa25d
+Button Code - 2: 0x300ff629d
+Button Code - 3: 0x300ffe21d
+Button Code - 4: 0x300ff22dd
+Button Code - 5: 0x300ff02fd
+Button Code - 6: 0x300ffc23d
+Button Code - 7: 0x300ffe01f
+Button Code - 8: 0x300ffa857
+Button Code - 9: 0x300ff906f
+Button Code - 0: 0x300ff9867
+Button Code - star: 0x300ff6897
+Button Code - hash: 0x300ffb04f
