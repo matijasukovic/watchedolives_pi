@@ -39,6 +39,9 @@ camera = Picamera2()
 
 def on_press(key):
     if key == keyboard.Key.esc:
+        laser.off()
+        servo1.mid()
+        servo2.mid()
         return False  # stop listener
 
     try:
@@ -70,7 +73,7 @@ def controlServo(button):
 		servo1.mid()
 		servo2.mid()
 
-index = 0
+index = 1
 def capture():
     global index
 
@@ -83,8 +86,8 @@ def capture():
 
 def main():
     preview_config = camera.create_preview_configuration(
-        main={"size": (1920, 1080)},
-        lores={"size": (480, 480),},
+        main={"size": (1920, 1920)},
+        lores={"size": (1920, 1920),},
         display="lores"
     )
     camera.configure(preview_config)
