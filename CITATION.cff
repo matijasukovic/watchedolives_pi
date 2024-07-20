@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Šuković
+    given-names: Matija
+    orcid: https://orcid.org/0009-0008-6545-3736
+title: "WatchedOlives_Pi"
+version: 2.0.4
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.1234
+date-released: 2024-07-20
