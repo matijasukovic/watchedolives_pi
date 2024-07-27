@@ -1,41 +1,37 @@
-from gpiozero import Servo
 from time import sleep
-from gpiozero.pins.pigpio import PiGPIOFactory
+from adafruit_servokit import ServoKit
+
+kit = ServoKit(channels=16)
+
+pan = kit.servo[0]
+tilt = kit.servo[1]
+
+pan.set_pulse_width_range(540, 2640)
+tilt.set_pulse_width_range(540, 2640)
+
+def min(servo):
+    servo.angle = 0
+
+def mid(servo):
+    servo.angle = 90
+
+def max(servo):
+    servo.angle = 180
 
 def testServo(servo):
-    servo.min()
-    print(servo.value)
+    min(servo)
+    print(servo.angle)
     sleep(2)
-    servo.max()
-    print(servo.value)
+    max(servo)
+    print(servo.angle)
     sleep(2)
-    servo.mid()
-    print(servo.value)
+    mid(servo)
+    print(servo.angle)
     sleep(2)
 
-factory = PiGPIOFactory()
+testServo(pan)
+testServo(tilt)
 
-# Defaults are 1/1000 and 2/2000
-minimumPulseWidth = 0.5/1000
-maximumPulseWidth = 2.5/1000
-
-servo1 = Servo(
-    12, 
-    pin_factory=factory,
-    min_pulse_width=minimumPulseWidth,
-    max_pulse_width=maximumPulseWidth
-)
-
-servo2 = Servo(
-    13, 
-    pin_factory=factory,
-    min_pulse_width=minimumPulseWidth,
-    max_pulse_width=maximumPulseWidth
-)
-
-testServo(servo1)
-testServo(servo2)
-
-servo1.value = None
-servo2.value = None
+mid(pan)
+mid(tilt)
 

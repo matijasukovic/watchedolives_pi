@@ -1,34 +1,44 @@
-from gpiozero import Servo
-from gpiozero.pins.pigpio import PiGPIOFactory
 from time import sleep
+from adafruit_servokit import ServoKit
 import math
+import sys
+import traceback
 
-factory = PiGPIOFactory()
+kit = ServoKit(channels=16)
 
-# Defaults are 1/1000 and 2/2000
-minimumPulseWidth = 0.5/1000
-maximumPulseWidth = 2.5/1000
+pan = kit.servo[0]
+tilt = kit.servo[1]
 
-servo1 = Servo(
-    12, 
-    pin_factory=factory,
-    min_pulse_width=minimumPulseWidth,
-    max_pulse_width=maximumPulseWidth
-)
+pan.set_pulse_width_range(540, 2640)
+tilt.set_pulse_width_range(540, 2640)
 
-servo2 = Servo(
-    13, 
-    pin_factory=factory,
-    min_pulse_width=minimumPulseWidth,
-    max_pulse_width=maximumPulseWidth
-)
+def min(servo):
+    servo.angle = 0
 
-servo1.mid()
-servo2.max()
+def mid(servo):
+    servo.angle = 90
+
+def max(servo):
+    servo.angle = 180
+
+# Transforms a number from the range [-1, 1] to range [0, 180]
+def linear_transform(number):
+    try:
+        assert number >= -1 and number <= 1
+    except AssertionError as e:
+        traceback.print_exc()
+        print('linear_transform: number ' + str(number) + ' out of range [-1, 1]')
+        sys.exit(1)
+
+    return 90 * (number + 1)
+
+
+mid(pan)
+max(tilt)
 sleep(2)
 
 while True:
     for i in range(0, 360):
-        servo1.value = math.sin(math.radians(i))
-        servo2.value = math.cos(math.radians(i))
+        pan.angle = linear_transform(math.sin(math.radians(i)))
+        tilt.angle = linear_transform(math.cos(math.radians(i)))
         sleep(0.01)
