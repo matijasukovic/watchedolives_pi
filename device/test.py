@@ -1,7 +1,5 @@
 from picamera2 import Picamera2, Preview
-from signal import pause
 from libcamera import controls
-from time import sleep
 
 from adafruit_servokit import ServoKit
 
@@ -54,25 +52,26 @@ def on_press(key):
 
 
 def controlServo(button):
-	increment = 0.01
+	increment = 0.5
 
 	if button == "up" and tilt.angle + increment < 180:
 		tilt.angle += increment
+		print('tilt up', tilt.angle)
 	elif button == "down" and tilt.angle - increment > 0:
 		tilt.angle -= increment
+		print('tilt down ', tilt.angle)
 	elif button == "left" and pan.angle + increment < 180:
 		pan.angle += increment
+		print('pan left ', pan.angle)
 	elif button == "right" and pan.angle - increment > 0:
 		pan.angle -= increment
+		print('pan right ', pan.angle)
 	elif button == "enter":
 		laser.toggle()
 	elif button == '0':
 		laser.off()
 		mid(pan)
 		mid(tilt)
-
-	print(pan.angle)
-	print(tilt.angle)
 
 index = 1
 def capture():
@@ -105,6 +104,5 @@ def main():
 	listener.start()  # start to listen on a separate thread
 	listener.join()  # remove if main thread is polling self.keys   
 	
-
 if __name__ == '__main__':
 	main()
