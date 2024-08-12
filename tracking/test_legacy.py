@@ -186,9 +186,5 @@ def main():
         # cv2.waitKey(0)
         # break
 
-
-        
-
-
 if __name__ == '__main__':
     main()
