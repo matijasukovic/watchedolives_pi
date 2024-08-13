@@ -7,7 +7,7 @@ from gpiozero import OutputDevice
 
 from pynput import keyboard
 
-#Servo setup
+# Servo setup
 
 kit = ServoKit(channels=16)
 
@@ -28,10 +28,27 @@ def mid(servo):
 def max(servo):
 	servo.angle = 180
 
-#Laser setup
+# Laser setup
+
 laser = OutputDevice(17)
 
+# Camera setup
+
 camera = Picamera2()
+
+def capture():
+	return camera.capture_array()
+
+index = 1
+def captureAndSave():
+	global index
+
+	save_path = 'test_' + str(index) + '.png'
+	camera.capture_file(save_path)
+	print('saved as: ' ,save_path)
+
+	index = index + 1
+
 
 def on_press(key):
 	if key == keyboard.Key.esc:
@@ -46,12 +63,12 @@ def on_press(key):
 		k = key.name  # other keys
 
 	if k in ['left', 'right', 'up', 'down', 'enter', '0']:  # keys of interest
-		controlServo(k)
+		controlDevice(k)
 	elif k in ['space']:
-		capture()
+		captureAndSave()
 
 
-def controlServo(button):
+def controlDevice(button):
 	increment = 0.5
 
 	if button == "up" and tilt.angle + increment < 180:
@@ -73,16 +90,6 @@ def controlServo(button):
 		mid(pan)
 		mid(tilt)
 
-index = 1
-def capture():
-	global index
-
-	save_path = 'test_' + str(index) + '.png'
-	camera.capture_file(save_path)
-	print('saved as: ' ,save_path)
-
-	index = index + 1
-
 
 def main():
 	mid(pan)
@@ -90,7 +97,7 @@ def main():
 
 	preview_config = camera.create_preview_configuration(
 		main={"size": (1920, 1920)},
-		lores={"size": (1920, 1920),},
+		lores={"size": (1920, 1920)},
 		display="lores"
 	)
 	camera.configure(preview_config)
