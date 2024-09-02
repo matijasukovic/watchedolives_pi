@@ -2,6 +2,9 @@ import cv2
 import numpy as np
 import math
 
+#calculated manually
+height = 1300
+
 # Laser setup
 from gpiozero import OutputDevice
 laser = OutputDevice(17)
@@ -26,10 +29,13 @@ def mid(servo):
 def max(servo):
     servo.angle = 180
 
+def moveServos(laserPoint, targetPoint):
+    movePanServo(laserPoint, targetPoint)
+    moveTiltServo(laserPoint, targetPoint)
+
 def movePanServo(laserPoint, targetPoint):
     angleRadians = math.atan2(targetPoint[0] - laserPoint[0], laserPoint[1] - targetPoint[1])
 
-    # Shifting angle 90 degrees back to align with the value the pan servo takes
     shiftedAngleRadians = angleRadians + math.pi / 2
     
     # Bringing shifted angle to the [-pi, pi] range
@@ -41,20 +47,18 @@ def movePanServo(laserPoint, targetPoint):
     if angleDegrees < 0:
         angleDegrees += 180
 
-    print('pan angle in degrees ', angleDegrees)
+    # print('pan angle in degrees ', angleDegrees)
 
     if angleDegrees >= 0 and angleDegrees <= 180:
         pan.angle = angleDegrees
 
-def moveTiltServo(laserPoint, targetPoint):
-    distance = math.sqrt((laserPoint[0] - targetPoint[0])**2 + (laserPoint[1] - targetPoint[1])**2)
+def moveTiltServo(laserPoint, targetPoint, invert=False):
+    global height
 
-    #calculated manually
-    height = 2600
+    distance = math.sqrt((laserPoint[0] - targetPoint[0])**2 + (laserPoint[1] - targetPoint[1])**2)
     
     angleRadians = math.atan2(distance, height)
 
-    # Shifting angle 90 degrees back to align with the value the pan servo takes
     shiftedAngleRadians = angleRadians + math.pi / 2
     
     # Bringing shifted angle to the [-pi, pi] range
@@ -62,12 +66,12 @@ def moveTiltServo(laserPoint, targetPoint):
 
     angleDegrees = math.degrees(shiftedAngleRadians)
 
-    if angleDegrees < 0:
-        angleDegrees *= -1
+    if invert:
+        angleDegrees = 180 - angleDegrees
 
     print('tilt angle in degrees: ', angleDegrees)
     
-    if angleDegrees >=0 and angleDegrees <= 180:
+    if angleDegrees >= 0 and angleDegrees <= 180:
         tilt.angle = angleDegrees
 
 
@@ -140,6 +144,8 @@ def findLaserPoint(img):
     return laserPoint
 
 def main():
+    global height
+
     mid(pan)
     mid(tilt)
 
@@ -150,7 +156,8 @@ def main():
     camera.set_controls({"AfMode": controls.AfModeEnum.Continuous})
     camera.start()
 
-    laserOriginPoint = (781, 962)
+
+    laserOriginPoint = (752, 956)
 
     while True:
         img = capture()
@@ -168,14 +175,21 @@ def main():
             laser.on()
 
             movePanServo(laserOriginPoint, targetPoint)
-            moveTiltServo(laserOriginPoint, targetPoint)
+
+            invertTiltAngle = targetPoint[1] >= img.shape[0] / 2
+            print(invertTiltAngle)
+            moveTiltServo(laserOriginPoint, targetPoint, invertTiltAngle)
         else:
             laser.off()
 
         preview_img = cv2.resize(img, (800, 800))
         cv2.imshow('Preview', preview_img)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord('w'):
+            height -= 10
+            print(height)
+
+        elif cv2.waitKey(1) & 0xFF == ord('q'):
             mid(pan)
             mid(tilt)
             laser.off()
