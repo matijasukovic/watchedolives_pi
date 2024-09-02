@@ -39,7 +39,7 @@ camera = Picamera2()
 def capture():
 	return camera.capture_array()
 
-index = 1
+index = 0
 def captureAndSave():
 	global index
 
