@@ -2,3 +2,4 @@ numpy
 pynput
 sahi
 adafruit-circuitpython-servokit
+ultralytics
