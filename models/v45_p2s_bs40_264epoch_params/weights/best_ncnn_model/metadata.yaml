@@ -1,7 +1,7 @@
 description: Ultralytics YOLOv8s-p2 model trained on D:\rock_detection_v4.5\config.yaml
 author: Ultralytics
-date: '2024-07-26T08:43:28.979520'
-version: 8.2.1
+date: '2024-09-02T21:00:45.625731'
+version: 8.2.86
 license: AGPL-3.0 License (https://ultralytics.com/license)
 docs: https://docs.ultralytics.com
 stride: 32
