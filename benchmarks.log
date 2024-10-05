@@ -46,3 +46,35 @@ Benchmarks complete for best.pt on /home/matijasukovic_pi5/projects/watchedolive
 10          TensorFlow.js       ❌        0.0                  NaN                     NaN   NaN
 11           PaddlePaddle       ✅       85.3               0.7301                 1592.31  0.63
 12                   NCNN       ✅       42.6               0.7310                  254.62  3.93
+
+Benchmarks complete for best.pt on /home/matijasukovic_pi5/projects/watchedolives_pi/datasets/rock_detection_v4.5/config.yaml at imgsz=640 (1647.40s)
+                   Format Status❔  Size (MB)  metrics/mAP50-95(B)  Inference time (ms/im)   FPS
+0                 PyTorch       ✅       17.7               0.7048                  825.83  1.21
+1             TorchScript       ✅       11.9               0.7020                  818.57  1.22
+2                    ONNX       ✅       11.7               0.7020                  351.45  2.85
+3                OpenVINO       ✅       11.8               0.7020                  356.76  2.80
+4                TensorRT       ❌        0.0                  NaN                     NaN   NaN
+5                  CoreML       ❌        0.0                  NaN                     NaN   NaN
+6   TensorFlow SavedModel       ❌        0.0                  NaN                     NaN   NaN
+7     TensorFlow GraphDef       ❌        0.0                  NaN                     NaN   NaN
+8         TensorFlow Lite       ❌        0.0                  NaN                     NaN   NaN
+9     TensorFlow Edge TPU       ❌        0.0                  NaN                     NaN   NaN
+10          TensorFlow.js       ❌        0.0                  NaN                     NaN   NaN
+11           PaddlePaddle       ✅       23.3               0.7020                  766.04  1.31
+12                   NCNN       ✅       11.6               0.7000                  171.04  5.85
+
+Benchmarks complete for best.pt on /home/matijasukovic_pi5/projects/watchedolives_pi/datasets/rock_detection_v4.5/config.yaml at imgsz=640 (3552.10s)
+                   Format Status❔  Size (MB)  metrics/mAP50-95(B)  Inference time (ms/im)   FPS
+0                 PyTorch       ✅       21.5               0.7593                 2110.66  0.47
+1             TorchScript       ✅       42.8               0.7297                 1838.61  0.54
+2                    ONNX       ✅       42.6               0.7297                  547.68  1.83
+3                OpenVINO       ✅       42.8               0.7297                  509.72  1.96
+4                TensorRT       ❌        0.0                  NaN                     NaN   NaN
+5                  CoreML       ❌        0.0                  NaN                     NaN   NaN
+6   TensorFlow SavedModel       ✅      106.7               0.7297                  769.24  1.30
+7     TensorFlow GraphDef       ✅       42.7               0.7297                  718.64  1.39
+8         TensorFlow Lite       ✅       42.7               0.7297                 1022.53  0.98
+9     TensorFlow Edge TPU       ❌        0.0                  NaN                     NaN   NaN
+10          TensorFlow.js       ❌        0.0                  NaN                     NaN   NaN
+11           PaddlePaddle       ✅       85.3               0.7297                 1605.16  0.62
+12                   NCNN       ✅       42.6               0.7280                  257.05  3.89
