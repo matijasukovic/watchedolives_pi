@@ -3,3 +3,5 @@ pynput
 sahi
 adafruit-circuitpython-servokit
 ultralytics
+scikit-image
+imagecodecs
