@@ -6,7 +6,7 @@ import os
 import cv2
 
 # Note: In  order to use a NCNN model you need to comment out line 33 from sahi > models > yolov8.py
-model_path = r"/home/matijasukovic_pi5/projects/watchedolives_pi/models/n_base/weights/best_ncnn_model"
+model_path = r"/home/matijasukovic_pi5/projects/watchedolives_pi/models/m_base/weights/best_ncnn_model"
 images_path = r"/home/matijasukovic_pi5/projects/watchedolives_pi/datasets/rock_detection_v4.5/images/test"
 labels_path = r"/home/matijasukovic_pi5/projects/watchedolives_pi/datasets/rock_detection_v4.5/labels/test"
 export_path = r"/home/matijasukovic_pi5/projects/watchedolives_pi/inference/sahi"
