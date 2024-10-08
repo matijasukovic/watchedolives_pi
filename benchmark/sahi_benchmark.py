@@ -6,17 +6,21 @@ import os
 import cv2
 
 # Note: In  order to use a NCNN model you need to comment out line 33 from sahi > models > yolov8.py
-model_path = r"/home/matijasukovic_pi5/projects/watchedolives_pi/models/m_base/weights/best_ncnn_model"
+model_path = r"/home/matijasukovic_pi5/projects/watchedolives_pi/models/s_p2/weights/best_ncnn_model"
 images_path = r"/home/matijasukovic_pi5/projects/watchedolives_pi/datasets/rock_detection_v4.5/images/test"
 labels_path = r"/home/matijasukovic_pi5/projects/watchedolives_pi/datasets/rock_detection_v4.5/labels/test"
 export_path = r"/home/matijasukovic_pi5/projects/watchedolives_pi/inference/sahi"
 visualize = False
 
+
+
 def draw_ground_truth(image_path, label_path):
+
     image = cv2.imread(image_path)
     H, W = image.shape[:2]
 
     label_file = open(label_path, "r").read()
+
     labels = [[float(value) for value in label.split()] for label in label_file.split("\n") if label.strip()]
 
     for label in labels:
@@ -62,7 +66,7 @@ for image in os.listdir(images_path):
         result_sliced.export_visuals(export_dir=export_path, file_name=filename + '_sliced')
         draw_ground_truth(export_path + "/" + filename + '_sliced.png', label_path)
 
-
+# Discard the first measurement as the results are always significantly worse than the other.
 result_array = result_array[1:]
 
 totalSliceTimeInSeconds = 0
