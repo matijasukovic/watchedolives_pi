@@ -19,3 +19,6 @@ class Servo:
 
     def getAngle(self):
         return self.servo.angle
+    
+    def setAngle(self, angle):
+        self.servo.angle = angle
