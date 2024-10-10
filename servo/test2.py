@@ -1,5 +1,4 @@
 from time import sleep
-from adafruit_servokit import ServoKit
 import math
 import sys
 import traceback
