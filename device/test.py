@@ -7,26 +7,11 @@ from gpiozero import OutputDevice
 
 from pynput import keyboard
 
-# Servo setup
+# Laser head setup
 
-kit = ServoKit(channels=16)
+from classes.laser_head import LaserHead
 
-pan = kit.servo[0]
-tilt = kit.servo[1]
-
-print(pan.angle)
-
-pan.set_pulse_width_range(540, 2640)
-tilt.set_pulse_width_range(540, 2640)
-
-def min(servo):
-	servo.angle = 0
-
-def mid(servo):
-	servo.angle = 90
-
-def max(servo):
-	servo.angle = 180
+head = LaserHead()
 
 # Laser setup
 
@@ -53,8 +38,8 @@ def captureAndSave():
 def on_press(key):
 	if key == keyboard.Key.esc:
 		laser.off()
-		mid(pan)
-		mid(tilt)
+		head.pan.mid()
+		head.tilt.mid()
 		return False  # stop listener
 
 	try:
@@ -71,29 +56,29 @@ def on_press(key):
 def controlDevice(button):
 	increment = 0.5
 
-	if button == "up" and tilt.angle + increment < 180:
-		tilt.angle += increment
-		print('tilt up', tilt.angle)
-	elif button == "down" and tilt.angle - increment > 0:
-		tilt.angle -= increment
-		print('tilt down ', tilt.angle)
-	elif button == "left" and pan.angle + increment < 180:
-		pan.angle += increment
-		print('pan left ', pan.angle)
-	elif button == "right" and pan.angle - increment > 0:
-		pan.angle -= increment
-		print('pan right ', pan.angle)
+	if button == "up" and head.tilt.getAngle() + increment < 180:
+		head.tilt.setAngle(head.tilt.getAngle() + increment)
+		print('tilt up', head.tilt.getAngle())
+	elif button == "down" and head.tilt.getAngle() - increment > 0:
+		head.tilt.setAngle(head.tilt.getAngle() - increment)
+		print('tilt down ', head.tilt.getAngle())
+	elif button == "left" and head.pan.getAngle() + increment < 180:
+		head.pan.setAngle(head.pan.getAngle() + increment)
+		print('pan left ', head.pan.getAngle())
+	elif button == "right" and head.pan.getAngle() - increment > 0:
+		head.pan.setAngle(head.pan.getAngle() - increment)
+		print('pan right ', head.pan.getAngle())
 	elif button == "enter":
 		laser.toggle()
 	elif button == '0':
 		laser.off()
-		mid(pan)
-		mid(tilt)
+		head.pan.mid()
+		head.tilt.mid()
 
 
 def main():
-	mid(pan)
-	mid(tilt)
+	head.pan.mid()
+	head.tilt.mid()
 
 	preview_config = camera.create_preview_configuration(
 		main={"size": (1920, 1920)},
