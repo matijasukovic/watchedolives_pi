@@ -11,8 +11,15 @@ class LaserHead:
         self.pan.set_pulse_width_range(560, 2650)
         self.tilt.set_pulse_width_range(490, 2640)
 
+    def reset(self):
+        self.pan.mid()
+        self.tilt.mid()
+
     def test_servoRange(self):
         from time import sleep
+
+        self.reset()
+        sleep(0.5)
 
         self.pan.min()
         print(self.pan.getAngle())
@@ -33,5 +40,8 @@ class LaserHead:
         self.tilt.mid()
         print(self.tilt.getAngle())
         sleep(2)
+
+        self.reset()
+
 
 
