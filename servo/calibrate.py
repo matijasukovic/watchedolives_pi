@@ -1,5 +1,4 @@
 from time import sleep
-from adafruit_servokit import ServoKit
 from pynput import keyboard
 from gpiozero import OutputDevice
 
@@ -25,7 +24,7 @@ def on_press(key):
 
 	global step
 	
-	increment = 10
+	increment = 5
 
 	if key == keyboard.Key.esc:
 		laser.off()
