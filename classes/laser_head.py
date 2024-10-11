@@ -8,8 +8,8 @@ class LaserHead:
         self.pan = Servo(self.kit.servo[0])
         self.tilt = Servo(self.kit.servo[1])
 
-        self.pan.set_pulse_width_range(560, 2650)
-        self.tilt.set_pulse_width_range(490, 2640)
+        self.pan.set_pulse_width_range(560, 2635)
+        self.tilt.set_pulse_width_range(530, 2605)
 
     def reset(self):
         self.pan.mid()
